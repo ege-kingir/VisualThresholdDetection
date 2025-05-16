@@ -1,4 +1,5 @@
-%% VTD Main: With Cycling, or without a secondary task!
+%% VTD Main: With Cycling, or Without a secondary task!
+
 % Sukanya C, Ege Kingir (MSc Thesis, IMPRS)
 % 12 Nov 2023
 
@@ -12,6 +13,7 @@
 % come back down to normal).
 % In pseudo-random order: LRHRLRH or HRLRHRL.
 
+% "Rest" means that the subject still performs the task, but without cycling!
 
 % 4. Record 8 min baseline and measure blood pressure
 
@@ -49,8 +51,6 @@ try
 %% USER INPUT
 fprintf('VTD \n\nRun type options: \nHigh-resistance Cycling 1 (H) \nLow-resistance Cycling (L) \nRest (R) \nTest with cycling (TC) \nTest with rest (TR) \n\n\n');
 
-
-% Run Sequence A to F or test
 par.runtype = input('Run type (e.g. TR = Test with Rest, H = High-resistance cycling, TC = Test with Cycling) ', 's');
 
 if strcmp(par.runtype, 'R') | strcmp(par.runtype, 'L') | strcmp(par.runtype, 'H')
@@ -64,8 +64,8 @@ if strcmp(par.runtype, 'R') | strcmp(par.runtype, 'L') | strcmp(par.runtype, 'H'
     par.eyetracking = input('Last question: Eyetracking (1 = on, 0 = off) ');
     
 %     if par.eyetracking == 1
-        par.whicheyetracker = input('Which eyetracker do you want to use? (Eyelink = 1, Pupillabs = 2) ');
-        par.checkfix = input('Check fixation breaks? (1 = on, 0 = off) ');
+    par.whicheyetracker = input('Which eyetracker do you want to use? (Eyelink = 1, Pupillabs = 2) ');
+    par.checkfix = input('Check fixation breaks? (1 = on, 0 = off) ');
 %     end;
     par.EEG = input('0=off, 1=on' ); % 1 = on
     
