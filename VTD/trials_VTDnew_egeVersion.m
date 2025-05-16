@@ -405,13 +405,6 @@ for block = 1:params.numblocks
     %                 ET = CheckFixation_VTD_egeVersion(ET, trial, params, output);
                 iter=iter+1;
             end
-        elseif params.eyetracking == 0
-            cursample = cursample + 1;
-            [ET.CurrentGaze(1,1) ET.CurrentGaze(1,2)] = GetMouse(params.window);
-            ET.currentTime = GetSecs();
-            ET.eyetime(cursample,1) = ET.currentTime;
-            gazes(end+1,1) = ET.CurrentGaze(1,1);
-            gazes(end,2) = ET.CurrentGaze(1,2);
 
         end
 
@@ -617,37 +610,7 @@ for block = 1:params.numblocks
 
                     end
                 end
-                        
-                    elseif params.eyetracking == 0
-                        cursample = cursample + 1;
-                        [ET.CurrentGaze(1,1) ET.CurrentGaze(1,2)] = GetMouse(params.window);
-                        ET.currentTime = GetSecs();
-                        ET.eyetime(cursample,1) = ET.currentTime;
-                        gazes(end+1,1) = ET.CurrentGaze(1,1);
-                        gazes(end,2) = ET.CurrentGaze(1,2);
-                        x = ET.CurrentGaze(1,1);
-                        y = ET.CurrentGaze(1,2);
-                        %                 figure(10);
-                        plot(x,y,'p')
-                        drawnow
-                        hold on
-                        if trial == 1
-                            center(trial,:) = meanGazeOne;
-                            center
-                        elseif trial == 2
-                            oldGaze = meanGazeOne * params.weightOld;
-                            newGaze = output(1).meanGazes * params.weightNew;
-            %                 vector = [meanGazeOne;output(1).meanGazes];
-                            center(trial,:) = oldGaze + newGaze
-                            %                                 center
-                        else
-                            oldGaze = center(trial-1,:) * params.weightOld;
-                            newGaze = output(trial-1).meanGazes * params.weightNew;
-            %                 vector = [center(trial-1,:);output(trial-1).meanGazes];
-                            center(trial,:) = oldGaze + newGaze
-                            %                                 center
-                        end
-                        ET = CheckFixation_VTD_egeVersion(ET, trial, params, output, center);
+
             end
             
             if ET.TrialAborted == true
@@ -792,33 +755,7 @@ for block = 1:params.numblocks
                         ET = CheckFixation_VTD_egeVersion(ET, trial, params, output, center);
                     end
                 end
-                        
-                    elseif params.eyetracking == 0
-                        cursample = cursample + 1;
-                        [ET.CurrentGaze(1,1) ET.CurrentGaze(1,2)] = GetMouse(params.window);
-                        ET.currentTime = GetSecs();
-                        ET.eyetime(cursample,1) = ET.currentTime;
-                        gazes(end+1,1) = ET.CurrentGaze(1,1);
-                        gazes(end,2) = ET.CurrentGaze(1,2);
-                        x = ET.CurrentGaze(1,1);
-                        y = ET.CurrentGaze(1,2);
-                        %                 figure(10);
-                        %                 plot(x,y,'p')
-                        %                 drawnow
-                        %                 hold on
-                        if trial == 1
-                            center(trial,:) = meanGazeOne;
-                            center
-                        elseif trial ==2
-                            vector = [meanGazeOne;output(1).meanGazes];
-                            center(trial,:) = mean(vector,1);
-                            center
-                        else
-                            vector = [center(trial-1,:);output(trial-1).meanGazes];
-                            center(trial,:) = mean(vector,1);
-                            center
-                        end
-                        ET = CheckFixation_VTD_egeVersion(ET, trial, params, output, center);
+
             end
             
             
@@ -1071,33 +1008,6 @@ for block = 1:params.numblocks
                         ET = CheckFixation_VTD_egeVersion(ET, trial, params, output, center);
                     end
                 end
-                        
-                    elseif params.eyetracking == 0
-                        cursample = cursample + 1;
-                        [ET.CurrentGaze(1,1) ET.CurrentGaze(1,2)] = GetMouse(params.window);
-                        ET.currentTime = GetSecs();
-                        ET.eyetime(cursample,1) = ET.currentTime;
-                        gazes(end+1,1) = ET.CurrentGaze(1,1);
-                        gazes(end,2) = ET.CurrentGaze(1,2);
-                        x = ET.CurrentGaze(1,1);
-                        y = ET.CurrentGaze(1,2);
-                        %                 figure(10);
-                        %                 plot(x,y,'p')
-                        %                 drawnow
-                        %                 hold on
-                        if trial == 1
-                            center(trial,:) = meanGazeOne;
-                            center
-                        elseif trial ==2
-                            vector = [meanGazeOne;output(1).meanGazes];
-                            center(trial,:) = mean(vector,1);
-                            center
-                        else
-                            vector = [center(trial-1,:);output(trial-1).meanGazes];
-                            center(trial,:) = mean(vector,1);
-                            center
-                        end
-                        ET = CheckFixation_VTD_egeVersion(ET, trial, params, output, center);
             end
             
             if ET.TrialAborted == true
