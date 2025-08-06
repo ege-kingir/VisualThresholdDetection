@@ -2,7 +2,7 @@
 
 CONTENT:
 1) MAIN, params, and trials scripts for the visual threshold detection task.
-2) helper functions for experiment execution (including the AprilTags for display screen -surface recognition by Pupil Labs software
+2) helper functions for experiment execution
 3) Data pre-processing scripts: One for ECG-Breathing data, one for EEG data
 4) Data analysis scripts:
        - Sinusoidal modelling of heart rate changes as a function of the respiratory phase
