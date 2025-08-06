@@ -10,6 +10,4 @@ CONTENT:
        - baseline and anticipatory RSA modelling at the level of single participants
        - Statistical tests for RSA and non-respiratory cardiac deceleration in Hit vs Miss & Low vs High confidence trials
 
-WARNING:
-   -There are some local upload and save directories specified in the scripts; please change them to your local directories for your use case.
    
