@@ -1,0 +1,45 @@
+%% Resting state (10-min) pre-processing of VTD data (ECG and breathing)
+%%
+clear;clc
+addpath S:\KNEU\KNEUR-Projects\Projects\Ege-Backup\MATLAB\eeglab2023.0
+eeglab
+
+addpath S:\KNEU\KNEUR-Projects\Projects\Ege-Backup\VTD\code\VTD_analysisScripts_EK %for the ECG and breathing-related analysis functions
+
+%% Get relevant file names from your subject of choice
+subjectNo = input('Enter the code for the subject you want to analyze (e.g. 01): ', 's');
+
+%% directs to target location where you have the ECG recordings of your...
+%...subject
+targetDir = strcat('S:\KNEU\KNEUR-Projects\Projects\Ege-Backup\VTD\rawData\VTD_EEGrecordings\VTD',subjectNo);
+% cd(targetDir);
+
+eegFile = uigetfile({'*.*'},'Select the .eeg file of the block');
+hdrFile = uigetfile({'*.*'},'Select the .vhdr file of the block');
+targetHdr = [targetDir '\' hdrFile];
+
+%% get channel numbers for your ECG and breathing sensors, load raw data into workspace
+ecg1_chan = input('Enter the #ecg1 channel (65 or 66): ');
+br_chan = input('Enter the br channel (most likely 67): ');
+
+EEG = pop_loadbv(targetDir,hdrFile,[],[ecg1_chan,br_chan]);
+
+new_fs=250; % Original data is recorded with 25000 Hz sampling rate: downsample to 1000 Hz
+EEG = pop_resample(EEG, new_fs); 
+
+%% Pre-process the breathing data: interpolate and smooth
+% br_raw = br_raw .* (-1); % --> I am not sure if we need to multiply by -1 (for this I need to perform respiratory sinus arrhythmia analysis)
+br_raw = double(EEG.data(2,:));
+brFilled = filloutliers(br_raw, 'linear', 'movmedian', 1000);
+brSmoothed = smoothdata(brFilled, 'sgolay', 1000);
+
+%% bandpass ECG for general processing purposes & transfer data to EEGLAB
+EEG = pop_eegfiltnew(EEG, 0.5, 45); % [5 15] is for emphasizing the QRS complex. [0.5 45] is for general purpose ECG pre-processing.
+
+EEG.data(2,:) = brSmoothed;
+[ALLEEG, EEG] = eeg_store(ALLEEG, EEG, CURRENTSET);
+eeglab redraw
+
+preProcDir = ['S:\KNEU\KNEUR-Projects\Projects\Ege-Backup\VTD\preliminary\VTD_noneEEG_preProcessedBaselines\Cardiac_Breathing\' subjectNo];
+filename = ['VTD' subjectNo '_ECG_BR_preProcessed.set'];
+EEG = pop_saveset(EEG,'filename',filename,'filepath',preProcDir);
