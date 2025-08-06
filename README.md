@@ -1,4 +1,4 @@
-*Public GitHub repo, including experiment, data pre-processing and analysis scripts*
+*Public GitHub repo, including experiment, data pre-processing and analysis scripts for a Visual Threshold-Level Stimulus Detection task*
 
 CONTENT:
 1) MAIN, params, and trials scripts for the visual threshold detection task.
