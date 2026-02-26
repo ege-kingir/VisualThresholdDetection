@@ -2,7 +2,6 @@
 function [A, B, phi, y, SSres, SStot, Rsq, phases_clean, dIBI_clean, thetas_fit, amplitudes_fit] = RSA_sinusoidalFit(phases,deltaIBI)
 
     %% INPUTS
-    % Example data (replace with your actual vectors)
     % phases = ...     % Nx1 vector of breathing phase (radians)
     % deltaIBI = ...     % Nx1 vector ΔIBI...
     %                     ... ΔIBI = (the R-R interval that starts with your target beat) - (the R-R interval that ends with your target beat)
@@ -50,4 +49,5 @@ function [A, B, phi, y, SSres, SStot, Rsq, phases_clean, dIBI_clean, thetas_fit,
     SSres = sum((dIBI_clean - y).^2);
     SStot = sum((dIBI_clean - mean(dIBI_clean)).^2);
     Rsq = 1 - SSres / SStot;
+
 end
